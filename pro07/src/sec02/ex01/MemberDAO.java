@@ -1,4 +1,4 @@
-package sec01.ex02;
+package sec02.ex01;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,20 +18,39 @@ import javax.sql.DataSource; // COnnectionPool 객체를 구현하기 위한 클래스
 
 
 public class MemberDAO {
+	/*
 	private static final String driver = "oracle.jdbc.driver.OracleDriver";
 	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	private static final String user = "scott";
 	private static final String pwd = "triger";
+	*/
+	// ==> 더 이상 사용되지 않으므로 주석!
 	
 	private Connection con;
 	private PreparedStatement pstmt;
 	private DataSource dataFactory;
 	
+	public MemberDAO()
+	{
+		try
+		{
+			Context ctx = new InitialContext();
+			Context envContext = (Context) ctx.lookup("java:/comp/env");
+			// lookup("java:/comp/env") 를 통해 로컬리소스에 접근 
+			// JNDI에 접근
+			dataFactory = (DataSource) envContext.lookup("jdbc/oracle");
+			// ==> 톰켓 context.xml에 설정한 name값 미리 연결한 DataSource를 받아옴
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public List<MemberVO> listMembers(){
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		try {
-			connDB();
-			// con = dataFactory.getConnection();
+			// connDB();
+			con = dataFactory.getConnection(); // DataSource를 이용해 데이터베이스에 연결
 			String query = "select * from t_member";
 			System.out.println("prepareSatement:" + query);
 			
@@ -66,19 +85,22 @@ public class MemberDAO {
 		return list;
 	}
 	
-	private void connDB()
-	{
-		try
-		{
-			Class.forName(driver);
-			System.out.println("Oracle 드라이버 로딩 성공");
-			con = DriverManager.getConnection(url, user, pwd);
-			System.out.println("Connection 생성 성공");
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
 	
+	// DAO에서 직접 데이터베이스를 연결하는 기능은 이제 필요 없음!
+	
+//	private void connDB()
+//	{
+//		try
+//		{
+//			Class.forName(driver);
+//			System.out.println("Oracle 드라이버 로딩 성공");
+//			con = DriverManager.getConnection(url, user, pwd);
+//			System.out.println("Connection 생성 성공");
+//		} catch (Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+//	}
+//	
 
 }
