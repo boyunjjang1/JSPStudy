@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>자바스크립트에서 쿠키 사용</title>
+	<script type="text/javascript">
+		// 페이지 로드 이벤트 처리
+		window.onload = pageLoad;
+		function pageLoad(){
+			notShowPop = getCookieValue();
+			if(notShowPop != "true"){
+				// notShowPop의 값이 true가 아니면 팝업창을 나타냄
+				window.open("popUp.html","pop","width=400, height=500,history=no,resizable=no,scrollbars=yes,menubar=no");
+			}
+		}
+		
+		function getCookieValue(){
+			var result = "false";
+			if(document.cookie != ""){
+				// 1. 쿠키가 비어있지 않으면
+				// 2. document의 cookie 속성으로 쿠키 정보를 문자열로 갖고옴
+				// 3. 세미콜론으로 분리해 각각의 쿠키를 얻음
+				cookie = document.cookie.split(";");
+				for(var i =0; i < cookie.length;i++){
+					element = cookie[i].split("=");
+					value = element[0];
+					value=value.replace(/^\s*/,''); // 정규식을 이용해 쿠키 이름 문자열의 앞뒤 공백제거
+					if(value == "notShowPop"){
+						result = element[1];
+					}	
+				}
+			}
+			return result;
+		}
+		
+		function deleteCookie(){
+			document.cookie = "notShowPop=" + "false" + ";path=/; expires = -1";
+		}
+	</script>
+</head>
+<body>
+	<form>
+		<input type="button" value="쿠키삭제" onClick="deleteCookie()">
+	</form>
+</body>
+</html>
