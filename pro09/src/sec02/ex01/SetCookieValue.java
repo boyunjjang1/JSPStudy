@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/set")
+// @WebServlet("/set")
 public class SetCookieValue extends HttpServlet{
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 

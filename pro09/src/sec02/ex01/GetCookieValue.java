@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/get")
+// @WebServlet("/get")
 public class GetCookieValue extends HttpServlet{
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) 
