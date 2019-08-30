@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/login")
+// @WebServlet("/login")
 public class LoginTest extends HttpServlet{
 	ServletContext context = null;
 	List user_list = new ArrayList(); // 로그인한 접속자 ID를 저장하는 ArrayList
