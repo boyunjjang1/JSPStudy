@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ajax1연습</title>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	function fn_process(){
+		$.ajax({
+			type:"get", // get 방식으로 전송 함
+			dataType:"text", // 응답 데이터를 텍스트로 지정 함
+			async:false, // false인 경우 동기식으로 처리 함
+			url:"http://localhost:8090/pro16/ajaxTest1", // 전송할 서블릿 지정
+			data: {param:"Heelo,jquery"}, // 서버로 매개변수와 값 설정
+			success:function (data,textStatus){
+				$('#message').append(data);
+			},
+			error:function (data, testStatus){
+				alert("에러가 발생했습니다. ");
+			},
+			complete:function (data,textStatus){
+				alert("작업을 완료했습니다.");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<input type="button" value="전송하기" onClick="fn_process()" /><br><br>
+	<div id="message"></div>
+</body>
+</html>
